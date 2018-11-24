@@ -1,0 +1,25 @@
+version: '2'
+
+services: 
+  db:
+    image: mariadb
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: testTest1
+      MYSQL_USER: koken
+      MYSQL_PASSWORD: testTest1
+    volumes:
+      - /tmp/mysql:/var/lib/mysql
+  koken:
+    image: samdickinson/koken-lemp
+    restart: always
+    ports: 
+      - '8080:8080'
+    depends_on: 
+      - 'db'
+    environment: 
+      MYSQL_PASSWORD: testTest1
+      KOKEN_PASSWORD: testTest1
+      KOKEN_DB: koken
+    volumes: 
+      - ./tmp/www:/usr/share/nginx/www
